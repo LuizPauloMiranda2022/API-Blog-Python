@@ -18,7 +18,7 @@ def token_obrigatorio(f):
             return jsonify({'mensagem': 'Token não foi incluído!'}, 401)
         # Se temos um token, validar acesso consultando o BD
         try:
-            resultado = jwt.decode(token, app.config['SECRET_KEY'])
+            resultado = jwt.decode(token, app.config['SECRET_KEY'], algorithms=['HS256'])
             autor = Autor.query.filter_by(
                 id_autor=resultado['id_autor']).first()
         except:
@@ -71,7 +71,7 @@ def obter_postagem_por_indice(autor, id_postagem):
 
     return jsonify({'postagens': postagem_atual})
 
-# Criar uma nova postagem - POST https://localhost:5000/postagem
+# Criar uma nova postagem - POST https://localhost:5000/postagem.
 
 
 @app.route('/postagem', methods=['POST'])

@@ -33,13 +33,14 @@ class Autor(db.Model):
 
 def inicializar_banco():
     # Executar o comando para criar o banco de dados
-    db.drop_all()
-    db.create_all()
-    # Criar usuários adminstradores
-    autor = Autor(nome='jhonatan', email='jhonatan@email.com',
-                  senha='123456', admin=True)
-    db.session.add(autor)
-    db.session.commit()
+    with app.app_context():
+        db.drop_all()
+        db.create_all()
+        # Criar usuários adminstradores
+        autor = Autor(nome='jhonatan', email='jhonatan@email.com',
+                    senha='123456', admin=True)
+        db.session.add(autor)
+        db.session.commit()
 
 
 if __name__ == "__main__":
